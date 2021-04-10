@@ -1,0 +1,14 @@
+- ParkingLot
+code
+capacity
+openHour
+closeHour
+
+- ParkedCar
+code
+plate
+date
+
+--- use Cases ---
+EnterParkingLot
+LeaveParkingLot
