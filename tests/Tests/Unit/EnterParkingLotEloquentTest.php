@@ -6,11 +6,11 @@ namespace Tests\Unit;
 use App\Core\Repositories\ParkedCarRepository;
 use App\Core\Repositories\ParkingLotRepository;
 use App\Core\UseCases\EnterParkingLotUseCase;
-use App\Infra\Repositories\ParkedCarRepositoryMemory;
-use App\Infra\Repositories\ParkingLotRepositoryMemory;
+use App\Infra\Repositories\ParkedCarRepositoryEloquent;
+use App\Infra\Repositories\ParkingLotRepositoryEloquent;
 use PHPUnit\Framework\TestCase;
 
-final class EnterParkingLotTest extends TestCase
+final class EnterParkingLotEloquentTest extends TestCase
 {
     private ParkingLotRepository $parkingLotRepository;
     private ParkedCarRepository $parkedCarRepository;
@@ -19,14 +19,14 @@ final class EnterParkingLotTest extends TestCase
     {
         parent::__construct();
 
-        $this->parkingLotRepository = new ParkingLotRepositoryMemory();
-        $this->parkedCarRepository = new ParkedCarRepositoryMemory();
+        $this->parkingLotRepository = new ParkingLotRepositoryEloquent();
+        $this->parkedCarRepository = new ParkedCarRepositoryEloquent();
     }
 
     public function testEnterParkingLotWithSuccess(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_'.rand(),
             'capacity' => 3,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')
@@ -47,7 +47,7 @@ final class EnterParkingLotTest extends TestCase
     public function testParkingLotIsClosed(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_'.rand(),
             'capacity' => 3,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')
@@ -64,7 +64,7 @@ final class EnterParkingLotTest extends TestCase
     public function testParkingLotHasNotOpened(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_'.rand(),
             'capacity' => 3,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')
@@ -81,7 +81,7 @@ final class EnterParkingLotTest extends TestCase
     public function testParkingLotNotFound(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_'.rand(),
             'capacity' => 3,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')
@@ -98,7 +98,7 @@ final class EnterParkingLotTest extends TestCase
     public function testParkingLotIsFull(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_fll'.rand(),
             'capacity' => 2,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')
@@ -107,8 +107,8 @@ final class EnterParkingLotTest extends TestCase
         $this->parkingLotRepository->createParkingLot($parkingLotData['code'], $parkingLotData['capacity'], $parkingLotData['open_hour'], $parkingLotData['close_hour']);
 
         $enterParkingLotUseCase = new EnterParkingLotUseCase($this->parkingLotRepository, $this->parkedCarRepository);
-        $enterParkingLotUseCase->execute($parkingLotData['code'], 'ABC-1237', new \DateTime('2021-05-10T10:00:00'));
-        $enterParkingLotUseCase->execute($parkingLotData['code'], 'LKO-3218', new \DateTime('2021-05-10T11:00:00'));
+        $enterParkingLotUseCase->execute($parkingLotData['code'], 'LSX-1091', new \DateTime('2021-05-10T10:00:00'));
+        $enterParkingLotUseCase->execute($parkingLotData['code'], 'APQ-0901', new \DateTime('2021-05-10T11:00:00'));
 
         $this->expectExceptionMessage('The parking lot is full.');
         $enterParkingLotUseCase->execute($parkingLotData['code'], 'KJS-8789', new \DateTime('2021-05-10T13:00:00'));
@@ -117,7 +117,7 @@ final class EnterParkingLotTest extends TestCase
     public function testCarAlreadyParked(): void
     {
         $parkingLotData = [
-            'code' => 'shopping',
+            'code' => 'test_'.rand(),
             'capacity' => 2,
             'open_hour' => new \DateTime('2021-04-10T09:00:00'),
             'close_hour' => new \DateTime('2021-04-10T18:00:00')

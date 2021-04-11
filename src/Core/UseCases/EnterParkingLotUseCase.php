@@ -4,23 +4,24 @@ declare(strict_types=1);
 namespace App\Core\UseCases;
 
 use App\Core\Entities\ParkedCar;
+use App\Core\Repositories\ParkedCarRepository;
 use App\Core\Repositories\ParkingLotRepository;
 
 class EnterParkingLotUseCase
 {
-    /**
-     * @var ParkingLotRepository
-     */
-    private ParkingLotRepository $parkingLotRepository;
 
-    public function __construct(ParkingLotRepository $parkingLotRepository)
+    private ParkingLotRepository $parkingLotRepository;
+    private ParkedCarRepository $parkedCarRepository;
+
+    public function __construct(ParkingLotRepository $parkingLotRepository, ParkedCarRepository $parkedCarRepository)
     {
         $this->parkingLotRepository = $parkingLotRepository;
+        $this->parkedCarRepository = $parkedCarRepository;
     }
 
     public function execute(string $code, string $plate, \DateTime $date): void
     {
-        $parkingLot = $this->parkingLotRepository->getParkingLot($code);
+        $parkingLot = $this->parkingLotRepository->getParkingLot($code, $this->parkedCarRepository);
         $parkedCar = new ParkedCar($code, $plate, $date);
 
         if(!$parkingLot->isOpen($parkedCar->date)){
@@ -31,10 +32,10 @@ class EnterParkingLotUseCase
             throw new \Exception('The parking lot is full.');
         }
 
-        if($this->parkingLotRepository->getParkedCarByPlate($code, $plate)){
+        if($this->parkedCarRepository->getParkedCarByPlate($code, $plate)){
             throw new \Exception('This car already parked.');
         }
 
-        $this->parkingLotRepository->createParkedCar($parkedCar->code, $parkedCar->plate, $parkedCar->date);
+        $this->parkedCarRepository->createParkedCar($parkedCar->code, $parkedCar->plate, $parkedCar->date);
     }
 }

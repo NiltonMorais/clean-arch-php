@@ -27,6 +27,6 @@ class ParkingLot
 
     public function isFull(): bool
     {
-        return $this->capacity == $this->occupiedSpaces;
+        return $this->occupiedSpaces >= $this->capacity;
     }
 }
