@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Core\Repositories;
+namespace App\Domain\ParkingLot\Repositories;
 
-use App\Core\Entities\ParkingLot;
+use App\Domain\ParkingLot\Entities\ParkingLot;
 
 interface ParkingLotRepository
 {

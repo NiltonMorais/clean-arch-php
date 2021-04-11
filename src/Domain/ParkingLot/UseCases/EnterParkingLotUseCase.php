@@ -1,15 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Core\UseCases;
+namespace App\Domain\ParkingLot\UseCases;
 
-use App\Core\Entities\ParkedCar;
-use App\Core\Repositories\ParkedCarRepository;
-use App\Core\Repositories\ParkingLotRepository;
+use App\Domain\ParkingLot\Entities\ParkedCar;
+use App\Domain\ParkingLot\Repositories\ParkedCarRepository;
+use App\Domain\ParkingLot\Repositories\ParkingLotRepository;
 
 class EnterParkingLotUseCase
 {
-
     private ParkingLotRepository $parkingLotRepository;
     private ParkedCarRepository $parkedCarRepository;
 

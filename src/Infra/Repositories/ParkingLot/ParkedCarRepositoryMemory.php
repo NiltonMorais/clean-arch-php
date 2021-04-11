@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infra\Repositories;
+namespace App\Infra\Repositories\ParkingLot;
 
-use App\Adapters\ParkedCarAdapter;
-use App\Core\Entities\ParkedCar;
-use App\Core\Repositories\ParkedCarRepository;;
+use App\Adapters\ParkingLot\ParkedCarAdapter;
+use App\Domain\ParkingLot\Entities\ParkedCar;
+use App\Domain\ParkingLot\Repositories\ParkedCarRepository;;
 
 class ParkedCarRepositoryMemory implements ParkedCarRepository
 {

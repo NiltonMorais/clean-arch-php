@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Core\Entities;
+namespace App\Domain\ParkingLot\Entities;
 
 class ParkingLot
 {

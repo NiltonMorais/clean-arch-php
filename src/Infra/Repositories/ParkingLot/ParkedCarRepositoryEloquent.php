@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Infra\Repositories;
+namespace App\Infra\Repositories\ParkingLot;
 
-use App\Adapters\ParkedCarAdapter;
-use App\Core\Entities\ParkedCar;
-use App\Core\Repositories\ParkedCarRepository;
+use App\Adapters\ParkingLot\ParkedCarAdapter;
+use App\Domain\ParkingLot\Entities\ParkedCar;
+use App\Domain\ParkingLot\Repositories\ParkedCarRepository;
 use App\Infra\DataBase\DataBase;
 use Illuminate\Database\Eloquent\Model;
 

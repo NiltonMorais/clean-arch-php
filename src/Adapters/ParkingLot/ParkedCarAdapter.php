@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Adapters;
+namespace App\Adapters\ParkingLot;
 
-use App\Core\Entities\ParkedCar;
+use App\Domain\ParkingLot\Entities\ParkedCar;
 
 class ParkedCarAdapter
 {
